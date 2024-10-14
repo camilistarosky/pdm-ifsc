@@ -3,7 +3,11 @@ package com.example.planetas;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     ListView listView;
@@ -12,8 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView=findViewById(R.id.listView);
+        DAOPlaneta dao = new DAOPlaneta();
+        PlanetaAdapter planteaAdapter = new PlanetaAdapter(this, R.layout.item_planeta, dao.planetas);
+        listView.setAdapter(planteaAdapter);
 
-        //PlanetaAdapter planteaAdapter = new PlanetaAdapter(this, R.layout.item_planeta, DAOPlaneta.get)
-       // listView.setAdapter();
     }
+
+    public void onItemClick(AdapterView<?> parnt, View view, int position, long id){
+        Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_LONG).show();
+    }
+
+    // inflar layout
 }

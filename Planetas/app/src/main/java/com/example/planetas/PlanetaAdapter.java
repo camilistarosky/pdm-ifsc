@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,23 +16,28 @@ import java.util.List;
 public class PlanetaAdapter extends ArrayAdapter {
 
     Context mContext;
-    Integer mResouse;
-    List mListPlaneta;
+    int mResouseXMl;
+    List<Planeta> mListPlaneta;
 
     public PlanetaAdapter(@NonNull Context context, int resource, @NonNull List objects) {
         super(context, resource, objects);
         mContext = context;
-        mResouse = resource;
+        mResouseXMl = resource;
         mListPlaneta = objects;
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view  = layoutInflater.inflate(mResouse, parent, false);
-        TextView tv = view.findViewById(R.id.textView);
-        tv.setText("PlanetaQualquer");
-        // SPlaneta p = getItem(position);
+        View view  = layoutInflater.inflate(mResouseXMl, parent, false);
+        // associa a variavl locais os componentes viws criados
+        TextView tv = view.findViewById(R.id.textView); // indo no xml
+        ImageView imageView = view.findViewById(R.id.imageView);
+
+        // recupra o obnjeto da classe
+        Planeta planeta = mListPlaneta.get(position);
+        tv.setText(planeta.nome);
+        imageView.setImageResource(planeta.foto);
         return view;
     }
 }
