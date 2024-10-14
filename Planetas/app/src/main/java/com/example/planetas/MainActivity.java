@@ -15,16 +15,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView=findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         DAOPlaneta dao = new DAOPlaneta();
         PlanetaAdapter planteaAdapter = new PlanetaAdapter(this, R.layout.item_planeta, dao.getPlanetas());
         listView.setAdapter(planteaAdapter);
 
-    }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_LONG).show();
 
-    public void onItemClick(AdapterView<?> parnt, View view, int position, long id){
-        Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_LONG).show();
+            }
+        });
     }
-
-    // inflar layout
 }

@@ -27,7 +27,7 @@ public class PlanetaAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         View view  = layoutInflater.inflate(mResouseXMl, parent, false);
         // associa a variavl locais os componentes viws criados
