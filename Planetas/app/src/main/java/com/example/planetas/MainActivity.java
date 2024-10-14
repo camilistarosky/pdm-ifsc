@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView=findViewById(R.id.listView);
         DAOPlaneta dao = new DAOPlaneta();
-        PlanetaAdapter planteaAdapter = new PlanetaAdapter(this, R.layout.item_planeta, dao.planetas);
+        PlanetaAdapter planteaAdapter = new PlanetaAdapter(this, R.layout.item_planeta, dao.getPlanetas());
         listView.setAdapter(planteaAdapter);
 
     }

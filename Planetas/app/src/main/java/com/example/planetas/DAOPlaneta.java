@@ -11,6 +11,8 @@ public class DAOPlaneta {
         planetas.add(new Planeta("Vênus", R.drawable.venus));
         planetas.add(new Planeta("Terra", R.drawable.earth));
 
-
+    }
+    public ArrayList<Planeta> getPlanetas() {
+        return planetas;
     }
 }
