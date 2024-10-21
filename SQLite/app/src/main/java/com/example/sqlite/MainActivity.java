@@ -3,17 +3,23 @@ package com.example.sqlite;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     SQLiteDatabase database;
     EditText editNome, editEmail, editData;
     Button button;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         editData = findViewById(R.id.editData);
         button = findViewById(R.id.buttonCadastrar);
+        listView = findViewById(R.id.listView);
 
         //defininfo tratamnto para evento e click
         button.setOnClickListener(new View.OnClickListener() {
@@ -41,12 +48,25 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Deu ruim", Toast.LENGTH_LONG).show();
                 }
-
+                carregarListagem();
             }
         });
 
         database = openOrCreateDatabase("meubd", MODE_PRIVATE, null);
         database.execSQL("CREATE TABLE IF NOT EXISTS pessoas (id INTEGER PRIMARY KEY AUTOINCREMENT,nome varchar, email varchar, datanasc Date)");
 
+    }
+
+    public void carregarListagem(){
+        Cursor cursor = database.rawQuery("SELECT * FROM pessoas ", null);
+        cursor.moveToFirst();
+        ArrayList<String> nomes = new ArrayList<>();
+        while (!cursor.isAfterLast()){
+            nomes.add(cursor.getString(1));
+            cursor.moveToNext();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, nomes);
+        listView.setAdapter(adapter);
     }
 }
